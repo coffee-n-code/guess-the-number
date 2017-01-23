@@ -1,0 +1,76 @@
+#!/usr/bin/env node
+'use strict'
+
+require('process');
+
+const MAX_ATTEMPTS = 5;
+var _playing = true;
+var _number = Math.floor(Math.random() * 100) + 1;
+var _attempt = 1;
+
+//
+// Wee shortcuts or whatever I don't care.
+function print() {
+	process.stdout.write(Array.from(arguments).reduce((a, b) => {
+		return a + " " + b;
+	}) + "\n");
+};
+
+function prompt(question, callback) {
+	var stdin = process.stdin,
+		stdout = process.stdout;
+	
+	stdin.resume();
+	stdout.write(question);
+	
+	stdin.once('data', function (data) {
+		// Some sanity checks:
+		var input = Number(data.toString().trim());
+		if (!input && input !== 0) {
+			// Do some stuff to redo the prompt....
+			print("Please enter a number, yo.");
+			prompt(question, callback);
+		} else
+			callback(input);
+	});
+}
+//
+//
+
+function get_position() {
+	return MAX_ATTEMPTS - _attempt;
+};
+
+function end(has_won) {
+	if (has_won)
+		print("Nice one! x\nThanks for playing, dawg.");
+	else
+		print("Ouf. Sorry but the number was", _number);
+	process.exit();
+};
+
+function play() {
+	let position = get_position();
+	if (position < 0)
+		return end(false);
+	
+	prompt("Take a guess: ", (input) => {
+		if (input === _number)
+			end(true);
+		else {
+			if (input < _number)
+				print("Too low, bro.");
+			else
+				print("Too high, guy.");
+			print(position, "guesses left!\n");
+			_attempt++;
+			play();
+		}
+	});
+};
+
+
+print("Welcome to Guess the Number!\n\
+It's shite but whatever. Number is between 1 and 100.\n\n\
+Good Luck!");
+play(); // start the game.
