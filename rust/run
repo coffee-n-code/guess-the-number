@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cargo build
+echo "============================================================"
+./target/debug/guess-the-number
