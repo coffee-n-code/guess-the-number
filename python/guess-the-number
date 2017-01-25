@@ -4,7 +4,7 @@ import sys
 from random import randint
 
 print '''
-Welcome to Guess the Number!
+Welcome to Guess the Number with Python!
 This game is kina shit but it's just for practice, K?
 
 You have 5 tries to guess the number chosen by your computer between 0 and 100.

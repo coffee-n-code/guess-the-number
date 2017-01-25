@@ -70,7 +70,7 @@ function play() {
 };
 
 
-print("Welcome to Guess the Number!\n\
+print("Welcome to Guess the Number with JavaScript!\n\
 It's shite but whatever. Number is between 1 and 100.\n\n\
 Good Luck!");
 play(); // start the game.
